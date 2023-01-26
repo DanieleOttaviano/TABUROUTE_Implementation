@@ -1,7 +1,7 @@
 #include "Search.h"
 
-extern double a;																		//Coefficiente di penalità per violazioni di capacità
-extern double b;																		//Coefficiente di penalità per violazioni di tempo
+extern double a;																		//Coefficiente di penalitï¿½ per violazioni di capacitï¿½
+extern double b;																		//Coefficiente di penalitï¿½ per violazioni di tempo
 extern int dim;																		//Dimensione del problema 
 extern float** adjMatrix;															//Matrice di adiacenza relativa ad i costi
 extern vector<Nodo> V;
@@ -16,7 +16,7 @@ void tabu_search(Soluzione& S, vector<Nodo>& W, int q, int p1, int p2, int theta
 	Tabulist listaTabu;																//lista Tabu vuota
 	vector<Nodo> PSI;																//Sotto insieme PSI di W contenente i q nodi estratti casualmente	
 	
-	// Contatori per gestire i coefficienti di penalità
+	// Contatori per gestire i coefficienti di penalitï¿½
 	int L_ammissibile=0;
 	int L_inammissibile=0;
 	int C_ammissibile=0;
@@ -108,7 +108,7 @@ void costruzione_vicinato(const Nodo& v, vector<int>& N, const int& p1) {
 	for (int k = 0; k < dim; k++) {
 		adjVector.push_back(adjMatrix[v.indice][k]);
 	}
-	//Inserisco i p1 elementi più piccoli di adjVector in N
+	//Inserisco i p1 elementi piï¿½ piccoli di adjVector in N
 	for (int j = 0; j < p1; j++) {												
 		int min = minimo_indice(adjVector, v.indice);							//Calcolo l'indice del minimo del vettore adjVector
 		N.push_back(min);														//Inserisco l'indice in N 
@@ -138,21 +138,21 @@ void identifica_soluzioni_temporanee(const vector<int>& N, const int& indice_nod
 	/*dato il nodo V[i], per ogni rotta, diversa da quella di V[i] che intersechi N, calcola la mossa che sposta V[i] in quella rotta*/
 	while (i < S.cluster.size()) {																					//Per ogni rotta di S
 		if (posizione_nodo(*S.cluster[i], V[indice_nodo]) == -1) {													//Diversa da quella del nodo v	
-			if (intersezione(N, S.cluster[i], indice_intersezione) || S.cluster[i]->percorso.size() == 1) {			//Se nella rotta è presente almeno un vicino di V oppure la rotta contiene solo il nodo deposito
+			if (intersezione(N, S.cluster[i], indice_intersezione) || S.cluster[i]->percorso.size() == 1) {			//Se nella rotta ï¿½ presente almeno un vicino di V oppure la rotta contiene solo il nodo deposito
 				temp.push_back(calcola_mossa(*S.cluster[rotta_del_nodo(S, V[indice_nodo])], *S.cluster[i], indice_nodo, indice_intersezione));  //Calcola la mossa relativa e inseriscila nel vettore delle mosse temporanee
 			}
 			else {
 				Mossa NoMossa;																						//Altrimenti
-				NoMossa.costo = FLOAT_INF;																			//La mossa ha costo infinito (nessuna mossa è stata fatta)
+				NoMossa.costo = FLOAT_INF;																			//La mossa ha costo infinito (nessuna mossa ï¿½ stata fatta)
 				temp.push_back(NoMossa);																			//Inserisci la mossa nel vettore delle mosse temporanee
 			}
 		}
 		i++;
 	}
-	//Ho così costruito un vettore temp composto da k mosse
-	//è ora necessario costruire, a partire da queste mosse, le soluzioni S.
+	//Ho cosï¿½ costruito un vettore temp composto da k mosse
+	//ï¿½ ora necessario costruire, a partire da queste mosse, le soluzioni S.
 	for (int i = 0; i < temp.size(); i++)																			//Per ogni mossa temporanea
-		if (temp[i].costo - FLOAT_INF < 0) {																		//Se la mossa è valida
+		if (temp[i].costo - FLOAT_INF < 0) {																		//Se la mossa ï¿½ valida
 			costruisci_soluzione(Soluzioni_temporanee, temp[i], S);													//Costrusici la soluzione temporanea a partir dalla mossa
 		}
 		
@@ -210,7 +210,7 @@ bool intersezione(const vector<int>& N, Rotta * cluster, int& indice_intersezion
 
 	for (int i = 0; i < N.size(); i++) {																		//Per ogni nodo vicino in N
 		for (std::list<Nodo>::iterator it = cluster->percorso.begin(); it != cluster->percorso.end(); ++it)		//Scorri la rotta
-			if (N[i] == it->indice) {																			//Se nella rotta è presente un nodo di N
+			if (N[i] == it->indice) {																			//Se nella rotta ï¿½ presente un nodo di N
 				indice_intersezione = posizione_nodo(*cluster, *it) ;											//assegna la posizione nella rotta r del nodo trovato
 				return true;																					
 			}
@@ -248,14 +248,14 @@ void controlla_soluzioni_tabu(vector<Soluzione>& Soluzioni_temporanee, Tabulist&
 		bool tabu = cerca_tabu(listaTabu, Soluzioni_temporanee[i].m);
 		bool aspirazione = false;
 
-		//Se la soluzione è tabu, verifica i criteri di aspirazione
+		//Se la soluzione ï¿½ tabu, verifica i criteri di aspirazione
 
 		if (tabu) {												
 			if (Soluzioni_temporanee[i].ammissibile && Soluzioni_temporanee[i].F1 < Soluzione_migliore_fattibile.F1) aspirazione = true;
 			else if (!Soluzioni_temporanee[i].ammissibile && Soluzioni_temporanee[i].F2 < Soluzione_migliore.F2) aspirazione = true;
 		}
 
-		//Se i criteri di aspirazione sono superati, oppure la soluzione non è tabu, passa al calcolo di F_temp.
+		//Se i criteri di aspirazione sono superati, oppure la soluzione non ï¿½ tabu, passa al calcolo di F_temp.
 
 		if (!tabu || aspirazione) {
 			if (Soluzioni_temporanee[i].F2 < S.F2) Soluzioni_temporanee[i].F_temp = Soluzioni_temporanee[i].F2;
@@ -309,7 +309,7 @@ Soluzione determina_soluzione_candidata(vector<Soluzione>& Soluzioni_temporanee)
 
 void determina_prossima_soluzione(Soluzione& Soluzione_candidata, Soluzione& S, int& L_ammissibile, int& L_inammissibile, int& C_ammissibile, int& C_inammissibile) {
 	
-	//Gestioni dei contatori : Se la soluzione candidata non è fattibile per capacità o tempo, o è fattibile, incremento il contatore relativo. 
+	//Gestioni dei contatori : Se la soluzione candidata non ï¿½ fattibile per capacitï¿½ o tempo, o ï¿½ fattibile, incremento il contatore relativo. 
 
 	if (Soluzione_candidata.penalita_capacita > 0) {
 		C_inammissibile++;
@@ -351,13 +351,13 @@ void aggiorna_lista_parametri(const Soluzione& Soluzione_candidata, Tabulist& li
 	tabuTemp.m = Soluzione_candidata.m;
 	tabuTemp.TTL = TTL_temp + t;
 
-	//BISOGNEREBBE FARE UNA RICERCA PER VEDERE SE LA MOSSA è GIà PRESENTE IN LISTA, MA NON è NECESSARIA AI FINI DEL FUNZIONAMENTO
+	//BISOGNEREBBE FARE UNA RICERCA PER VEDERE SE LA MOSSA ï¿½ GIï¿½ PRESENTE IN LISTA, MA NON ï¿½ NECESSARIA AI FINI DEL FUNZIONAMENTO
 
 	lista_tabu.mossa_tabu.push_back(tabuTemp); // inserisco la mossa tabu nella lista
 
 	/* Aggiornamento S*, S~*, F*, F~* */
 
-	bool soluzione_migliore_aggiornata = 0; // Serve a verificare se la soluzione verrà aggiornata. Utile per la gestione di n_miglioramenti.
+	bool soluzione_migliore_aggiornata = 0; // Serve a verificare se la soluzione verrï¿½ aggiornata. Utile per la gestione di n_miglioramenti.
 	if (Soluzione_candidata.ammissibile == 1) {
 		if (Soluzione_candidata.F1 < Soluzione_migliore_fattibile.F1)
 		{
@@ -384,7 +384,7 @@ void aggiorna_lista_parametri(const Soluzione& Soluzione_candidata, Tabulist& li
 
 	/* Aggiornamento di n_miglioramenti per verificare la condizione di stop */
 	if (soluzione_migliore_aggiornata == 0)
-		n_miglioramenti++; // Se la soluzione migliore non è stata aggiornata il contatore viene aumentato. Arrivati a una certa soglia l'algoritmo terminerà.
+		n_miglioramenti++; // Se la soluzione migliore non ï¿½ stata aggiornata il contatore viene aumentato. Arrivati a una certa soglia l'algoritmo terminerï¿½.
 	else n_miglioramenti = 0;
 	/* Aggiornamento dell'indice del costrutto iterativo */
 	t = t + 1;
@@ -393,7 +393,7 @@ void aggiorna_lista_parametri(const Soluzione& Soluzione_candidata, Tabulist& li
 
 void correzione_penalita(int& L_ammissibile, int& L_inammissibile, int& C_ammissibile, int& C_inammissibile, const int & h) {
 
-	//Se la soluzione migliore calcolata alle ultime h iterazioni è ammissibile o non lo è, modifica relativamente i coefficienti di penalità.
+	//Se la soluzione migliore calcolata alle ultime h iterazioni ï¿½ ammissibile o non lo ï¿½, modifica relativamente i coefficienti di penalitï¿½.
 	if (C_ammissibile == h) {
 		a = a / 2;
 		C_ammissibile = 0;
@@ -416,7 +416,7 @@ void correzione_penalita(int& L_ammissibile, int& L_inammissibile, int& C_ammiss
 
 //VERSIONE RENDERIZZATA DELLA TABU SEARCH
 
-void rendered_tabu_search(Soluzione& S, vector<Nodo>& W, int q, int p1, int p2, int theta_min, int theta_max, int g, int h, int n_max, SDL_Renderer* renderer, Frame Screen) {
+/*void rendered_tabu_search(Soluzione& S, vector<Nodo>& W, int q, int p1, int p2, int theta_min, int theta_max, int g, int h, int n_max, SDL_Renderer* renderer, Frame Screen) {
 
 	//STRUTTURA DELL'ALGORITMO DI TABU SEARCH
 
@@ -425,7 +425,7 @@ void rendered_tabu_search(Soluzione& S, vector<Nodo>& W, int q, int p1, int p2, 
 	Tabulist listaTabu;																//lista Tabu vuota
 	vector<Nodo> PSI;																//Sotto insieme PSI di W contenente i q nodi estratti casualmente	
 
-	// Contatori per gestire i coefficienti di penalità
+	// Contatori per gestire i coefficienti di penalitï¿½
 	int L_ammissibile = 0;
 	int L_inammissibile = 0;
 	int C_ammissibile = 0;
@@ -491,4 +491,4 @@ void rendered_tabu_search(Soluzione& S, vector<Nodo>& W, int q, int p1, int p2, 
 	distruggi_soluzione(Soluzione_migliore_fattibile);
 	distruggi_soluzione(Soluzione_migliore);
 	distruggi_soluzione(Soluzione_candidata);
-}
+}*/

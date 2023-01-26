@@ -1,7 +1,7 @@
 #pragma once
 #include "HGL.h"
 #include "tsp_2_opt.h"
-#include "GraphEngine.h"
+//#include "GraphEngine.h"
 #define STOP 1000000
 
 
@@ -17,13 +17,13 @@ void seleziona_vertici(vector<Nodo>& PSI, int q, vector<Nodo> W, int dim);
 /*Genera una soluzione candidata a nuova Soluzione migliore*/
 Soluzione valutazione_mossa(const vector<Nodo>& PSI, int q, int p1, vector<Soluzione> & Soluzioni_temporanee, Tabulist&, Soluzione & S, Soluzione& Soluzione_migliore_fattibile, Soluzione& Soluzione_migliore, const float &, const int &);
 
-/*Verifica se la soluzione candidata sostituirà la vecchia Soluzione migliore*/
+/*Verifica se la soluzione candidata sostituirï¿½ la vecchia Soluzione migliore*/
 void determina_prossima_soluzione(Soluzione& Soluzione_candidata, Soluzione& S, int& L_ammissibile, int& L_inammissibile, int& C_ammissibile, int& C_inammissibile);
 
-/*Aggiorna tutti i parametri di tempo, costo , la lista tabù e la migliore soluzione ammissibile e non*/
+/*Aggiorna tutti i parametri di tempo, costo , la lista tabï¿½ e la migliore soluzione ammissibile e non*/
 void aggiorna_lista_parametri(const Soluzione& Soluzione_candidata, Tabulist& lista_tabu, Soluzione& Soluzione_migliore_fattibile, Soluzione& Soluzione_migliore, float& delta_max, float& f_v, int& t, int& n_miglioramenti, const int& theta_min, const int& theta_max, const float& F2_prec);	//Aggiorna la lista tabu con la mossa effettuata e i parametri della search
 
-/*Aggiorna i coefficienti di penalità*/
+/*Aggiorna i coefficienti di penalitï¿½*/
 void correzione_penalita(int& L_ammissibile, int& L_inammissibile, int& C_ammissibile, int& C_inammissibile, const int & h);
  
 
@@ -35,7 +35,7 @@ void costruzione_vicinato(const Nodo& v, vector<int> & N, const int &p1);
 /*Dato un nodo v in PSI, e il suo intorno N, costruisce le soluzioni temporanee*/
 void identifica_soluzioni_temporanee(const vector<int> & N, const int & indice_nodo, const Tabulist, Soluzione& S, vector<Soluzione>& Soluzioni_temporanee, const int& indice_q);
 
-/*Controlla se una soluzione è generata a partire da una mossa tabu*/
+/*Controlla se una soluzione ï¿½ generata a partire da una mossa tabu*/
 void controlla_soluzioni_tabu(vector<Soluzione>& Soluzioni_temporanee, Tabulist& listaTabu, Soluzione& S, Soluzione& Soluzione_migliore_fattibile, Soluzione& Soluzione_migliore,const float& delta_max, const int& f_v);
 
 /*Stabilisce la soluzione candidata a partire da tutte le soluzioni temporanee identificate*/
@@ -60,10 +60,10 @@ void costruisci_soluzione(vector<Soluzione>& Soluzioni_temporanee, const Mossa& 
 
 //SOTTOFUNZIONI DI CONTROLLA_SOLUZIONI_TABU
 
-/*Controlla se la mossa m è tabu, e quindi è presente nella lista*/
+/*Controlla se la mossa m ï¿½ tabu, e quindi ï¿½ presente nella lista*/
 bool cerca_tabu(Tabulist& listaTabu, const Mossa& mossa);
 
 
 //RENDERED TABU SEARCH
 
-void rendered_tabu_search(Soluzione& S, vector<Nodo>& W, int q, int p1, int p2, int theta_min, int theta_max, int g, int h, int n_max, SDL_Renderer* renderer, Frame Screen);
+//void rendered_tabu_search(Soluzione& S, vector<Nodo>& W, int q, int p1, int p2, int theta_min, int theta_max, int g, int h, int n_max, SDL_Renderer* renderer, Frame Screen);

@@ -1,14 +1,14 @@
 #include "Taburoute.h"
 
 extern int dim;																		//Dimensione del problema 
-extern float Q;																		//Capacità massima dei veicoli
+extern float Q;																		//Capacitï¿½ massima dei veicoli
 extern float L;																		//Lunghezza massima percorribile dai veicoli
 extern float** adjMatrix;															//Matrice di adiacenza relativa ad i costi
 extern vector<Nodo> V;
-extern double a;																		//Coefficiente di penalità per violazioni di capacità
-extern double b;																		//Coefficiente di penalità per violazioni di tempo
+extern double a;																		//Coefficiente di penalitï¿½ per violazioni di capacitï¿½
+extern double b;																		//Coefficiente di penalitï¿½ per violazioni di tempo
 extern int n_veicoli;																		//Numero di veicoli(rotte)
-Soluzione S_migliore_fattibile;	// La soluzione migliore globale è necessaria; essa servirà per tenere traccia della migliore soluzione per successive chiamate di search();
+Soluzione S_migliore_fattibile;	// La soluzione migliore globale ï¿½ necessaria; essa servirï¿½ per tenere traccia della migliore soluzione per successive chiamate di search();
 Soluzione S_migliore; 
 Soluzione S_temporanea;	// La soluzione temporanea viene calcolata lambda volte nel ciclo iniziale della taburoute, come input a SEARCH(P1)
 
@@ -16,9 +16,9 @@ const string ISTANZA = "Istanza0.txt";
 extern int N_VEICOLI;
 
 
-void taburoute(int lambda) {
+void taburoute(int lambda, string istanza_input) {
 	// Inizializzazione 
-	preleva_dati("Istanza0.txt");
+	preleva_dati(istanza_input);
 
 	inizializza_variabili(100, FLOAT_INF,N_VEICOLI);
 	inizializza_soluzione(S_migliore,n_veicoli);
@@ -63,7 +63,7 @@ void taburoute(int lambda) {
 	//INTENSIFICAZIONE
 
 	// Configurazione parametri d'ingresso per SEARCH(P3) 
-	// Per W è necessario prendere i V/2 nodi col maggior numero di spostamenti subiti.
+	// Per W ï¿½ necessario prendere i V/2 nodi col maggior numero di spostamenti subiti.
 	vector<Nodo> V_temp = W;
 	// Insertion sort, ordinamento crescente 
 	for (int j = 1; j < V_temp.size(); j++) {
@@ -146,7 +146,7 @@ Soluzione genera_soluzione(const int& m) {
 	S.cluster[c]->indice = c;
 	S.cluster[c]->percorso.push_back(V[0]);																		//Inserisco il nodo sorgente nel cluster
 	while (n_nodi >= 0 && c < m - 1) {																			//Se ho inserito tutti i nodi oppure mi manca solo un cluster mi fermo
-		if ((domanda + V_casuale[n_nodi].domanda <= Q) && (lunghezza_percorso + V_casuale[n_nodi].tempo + adjMatrix[indice_prec][V_casuale[n_nodi].indice] + adjMatrix[0][V_casuale[n_nodi].indice] <= L)) {	//Se far entrare il nodo nel cluster rispetta i vincoli di capacità e lunghezza lo faccio entrare. lunghezza= lunghezza corrente + arco per inserire il nodo + arco per tornare al nodo sorgente
+		if ((domanda + V_casuale[n_nodi].domanda <= Q) && (lunghezza_percorso + V_casuale[n_nodi].tempo + adjMatrix[indice_prec][V_casuale[n_nodi].indice] + adjMatrix[0][V_casuale[n_nodi].indice] <= L)) {	//Se far entrare il nodo nel cluster rispetta i vincoli di capacitï¿½ e lunghezza lo faccio entrare. lunghezza= lunghezza corrente + arco per inserire il nodo + arco per tornare al nodo sorgente
 			domanda += V_casuale[n_nodi].domanda;																//tengo conto della domanda attuale
 			lunghezza_percorso += V_casuale[n_nodi].tempo + adjMatrix[indice_prec][V_casuale[n_nodi].indice];   //tengo conto della lunghezza attuale
 			//cout << "Lunghezza percorso: " << lunghezza_percorso << endl;
@@ -155,7 +155,7 @@ Soluzione genera_soluzione(const int& m) {
 			V_casuale.pop_back();
 			n_nodi--;
 		}
-		else {																									//Altrimenti il cluster è pieno e calcolo tutti i valori della rotta creata
+		else {																									//Altrimenti il cluster ï¿½ pieno e calcolo tutti i valori della rotta creata
 			calcola_lunghezza_percorso(*S.cluster[c]);
 			calcola_domanda_percorso(*S.cluster[c]);
 			calcola_tempo_percorso(*S.cluster[c]);
@@ -168,7 +168,7 @@ Soluzione genera_soluzione(const int& m) {
 		}
 	}
 
-	//Se non ho ancora caricato tutti i nodi e mi rimane solo un cluster Inserisco tutti i nodi nell'ultimo cluster (La funzione calcola F capirà se la solzione è ammissibile o meno)
+	//Se non ho ancora caricato tutti i nodi e mi rimane solo un cluster Inserisco tutti i nodi nell'ultimo cluster (La funzione calcola F capirï¿½ se la solzione ï¿½ ammissibile o meno)
 	if (n_nodi >= 0) {
 		while (n_nodi >= 0) {
 			S.cluster[c]->percorso.push_back(V_casuale[n_nodi]);
@@ -202,7 +202,7 @@ Soluzione genera_soluzione(const int& m) {
 
 	return S;
 }
-
+/*
 void rendered_taburoute(int lambda, SDL_Renderer* renderer) {
 	// Inizializzazione 
 	preleva_dati(ISTANZA);
@@ -281,7 +281,7 @@ void rendered_taburoute(int lambda, SDL_Renderer* renderer) {
 	//INTENSIFICAZIONE
 
 	// Configurazione parametri d'ingresso per SEARCH(P3) 
-	// Per W è necessario prendere i V/2 nodi col maggior numero di spostamenti subiti.
+	// Per W ï¿½ necessario prendere i V/2 nodi col maggior numero di spostamenti subiti.
 	vector<Nodo> V_temp = W;
 	// Insertion sort, ordinamento crescente 
 	for (int j = 1; j < V_temp.size(); j++) {
@@ -345,4 +345,4 @@ void taburoute(int lambda, bool mode) {
 	}
 	else taburoute(lambda);
 }
-
+*/

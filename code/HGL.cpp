@@ -2,22 +2,22 @@
 
 //SPAZIO DI INIZIALIZZAZIONE PER LE VARIABILI GLOBALI AL PROBLEMA
 
-double a;																		//Coefficiente di penalità per violazioni di capacità
-double b;																		//Coefficiente di penalità per violazioni di tempo
-int dim;																	//Dimensione del problema 
-float** adjMatrix;															//Matrice di adiacenza relativa ad i costi
-vector<Nodo> V;																//Insieme dei Nodi del grafo
-vector<Soluzione> S;														//Vettore delle lambda soluzioni iniziali
+double a;																		//Coefficiente di penalitï¿½ per violazioni di capacitï¿½
+double b;																		//Coefficiente di penalitï¿½ per violazioni di tempo
+int dim;																		//Dimensione del problema 
+float** adjMatrix;																//Matrice di adiacenza relativa ad i costi
+vector<Nodo> V;																	//Insieme dei Nodi del grafo
+vector<Soluzione> S;															//Vettore delle lambda soluzioni iniziali
 int N_VEICOLI;
 int n_veicoli;
 
-float Q;																	//Capacità per veicolo
+float Q;																	//Capacitï¿½ per veicolo
 float L;																	//Lunghezza di attraversamento per veicolo
 
 void inizializza_variabili(const float& q, const float& l, const int & veicoli) {
 
-	a = 1;																	//Inizializzazione coefficiente di penalità di capacità
-	b = 1;																	//Inizializzazione coefficiente di penalità di tempo(lunghezza)
+	a = 1;																	//Inizializzazione coefficiente di penalitï¿½ di capacitï¿½
+	b = 1;																	//Inizializzazione coefficiente di penalitï¿½ di tempo(lunghezza)
 	n_veicoli = veicoli;													//Inizializzazione numero di veicoli
 	dim = V.size();															//Dimensione del problema
 
@@ -45,8 +45,7 @@ void inizializza_variabili(const float& q, const float& l, const int & veicoli) 
 
 void distruggi_variabili(Soluzione& S)
 {
-	for (int i = 0; i < dim; i++)
-		delete[dim] adjMatrix[i];
+	for (int i = 0; i < dim; i++) delete adjMatrix[i];
 
 	for (int i = 0; i < 4; i++) delete S.cluster[i];
 }

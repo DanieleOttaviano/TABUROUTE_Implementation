@@ -21,7 +21,7 @@ struct Rotta {
 	list<Nodo> percorso;		//Ciclo Hamiltoniano interno alla rotta
 	float lunghezza;			//costo totale della rotta in termini di attraversamento di archi
 	float tempo_servizio;		//tempo di servizio speso in ogni nodo
-	float domanda_totale;		//Totale capacità richiesta dalla rotta
+	float domanda_totale;		//Totale capacitï¿½ richiesta dalla rotta
 	int indice;					//Indice della rotta internamente alla soluzione
 };
 
@@ -31,7 +31,7 @@ struct Nodo {
 	float y;
 
 	int indice;						//indice del nodo nel vettore V di origine
-	int domanda;					//quantità richiesta dal nodo
+	int domanda;					//quantitï¿½ richiesta dal nodo
 	int tempo;						//tempo di servizio del nodo
 	int spostamenti;				//Numero di spostamenti di un nodo
 };
@@ -47,11 +47,11 @@ struct Mossa {
 
 struct Soluzione {
 	float F1;						//Valore di funzione obiettivo
-	float F2;						//Valore di funzione obiettivo con penalità
-	float F_temp;					//Valore di funzione obiettivo con ulteriore penalità causata dallo spostamenti di uno stesso nodo
-	float penalita_capacita;		//Valore di penalità relativo a violazione di vincoli di capacità
-	float penalita_tempo;			//Valore di penalità relativo a violazione di vincoli di lunghezza
-	bool ammissibile;				//Ammissibilità della soluzione
+	float F2;						//Valore di funzione obiettivo con penalitï¿½
+	float F_temp;					//Valore di funzione obiettivo con ulteriore penalitï¿½ causata dallo spostamenti di uno stesso nodo
+	float penalita_capacita;		//Valore di penalitï¿½ relativo a violazione di vincoli di capacitï¿½
+	float penalita_tempo;			//Valore di penalitï¿½ relativo a violazione di vincoli di lunghezza
+	bool ammissibile;				//Ammissibilitï¿½ della soluzione
 	vector<Rotta*> cluster;			//Insieme di rotte che definiscono la soluzione
 	Mossa m;						//Mossa che ha generato la soluzione
 };
@@ -78,7 +78,7 @@ void assegna_soluzione(Soluzione& S1, const Soluzione& S2);
 void calcola_lunghezza_percorso(Rotta&);													//Calcola il tempo totale di percorrenza degli archi del percorso
 void calcola_domanda_percorso(Rotta&);														//Calcola la domanda totale dei nodi del percorso
 void calcola_tempo_percorso(Rotta&);														//calcola il tempo di servizio dei nodi del percorso
-void calcola_F(Soluzione & S);																//calcola le funzioni obiettivo della soluzione S (F1 ed F2), termini di penalità e ammissibilità
+void calcola_F(Soluzione & S);																//calcola le funzioni obiettivo della soluzione S (F1 ed F2), termini di penalitï¿½ e ammissibilitï¿½
 int posizione_nodo(Rotta&, const Nodo&);													//Identifica la posizione di un nodo in una rotta
 int rotta_del_nodo(const Soluzione&, const Nodo&);
 
